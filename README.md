@@ -16,7 +16,7 @@ Earley parser performs particularly well when the rules are written left-recursi
 
 ##Usage##
 
-###With hardcoded terminal symbols###
+###Grammar with hardcoded terminal symbols###
 ```javascript
 // Define grammar
 var grammar = new tinynlp.Grammar([
@@ -50,7 +50,8 @@ for (var i in trees) {
 }
 ```
 
-###With possibility to classify tokens - into terminal symbols (more generic approach)###
+###Customizing logic of tokens classification into terminal symbols###
+Potentially, this approach allows to extend parser with custom classifier of tokens - into terminal symbols (e.g. recognize terminal symbols using Regular expressions or more sophisticated classifiers):
 ```javascript
 var grammar = new tinynlp.Grammar([
     'R -> S',
@@ -61,9 +62,15 @@ var grammar = new tinynlp.Grammar([
 
 // Define function, which will classify tokens into terminal types
 grammar.terminalSymbols = function( token ) { 
+    // Actually, this method might be customized 
+    // to use some more sophisticated classification mechanisms
+    
     if( '+' === token || '-' === token ) return ['add_sub'];
     if( '*' === token || '/' === token ) return ['mul_div'];
     if( token.match(/^\d+$/) ) return ['num'];
+    // It is also possible that classifier returns 
+    // more than one terminal symbol, e.g.: ['term1', 'term2']
+    
     // Otherwise:
     throw new Error("Can't recognize token: " + token);
 }   
@@ -83,5 +90,32 @@ var trees =  chart.getFinishedRoot(rootRule).traverse();
 // Iterate over all parsed trees and display them on HTML page
 for (var i in trees) {
      console.log(JSON.stringify(trees[i]))
+}
+```
+###Traversing parsed tree
+Following snippet shows how to transform parsed trees into nested HTML lists:
+```javascript
+function toNestedList(tree) {
+   if (!tree.subtrees || tree.subtrees.length == 0) {
+       return '<li>' + tree.root + '</li>';
+   }   
+   var builder = []; 
+   builder.push('<li>');
+   builder.push(tree.root);
+   builder.push('<ul>')
+   for (var i in tree.subtrees) {
+       builder.push(toNestedList(tree.subtrees[i]))
+   }   
+   builder.push('</ul>')
+   builder.push('</li>')
+   return builder.join('');
+} 
+```
+Example of usage:
+```javascript
+// Iterate over all parsed trees and display them on HTML page
+for (var i in trees) {
+     htmlRepresentstion = '<ul>' + toNestedList(trees[i]) + '</ul>'
+     // embed htmlRepresentstion into HTML page
 }
 ```
