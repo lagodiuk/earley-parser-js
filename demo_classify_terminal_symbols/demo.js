@@ -12,7 +12,8 @@ function init() {
     grammar.terminalSymbols = function( token ) {
         if( '+' === token || '-' === token ) return ['add_sub'];
         if( '*' === token || '/' === token ) return ['mul_div'];
-        return ['num'];
+        if( token.match(/^\d+$/) ) return ['num'];
+        throw new Error("Can't recognize token: " + token);
     }
 
     // You have to tokenize input by yourself!
