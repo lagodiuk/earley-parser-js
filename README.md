@@ -16,6 +16,8 @@ Earley parser performs particularly well when the rules are written left-recursi
 
 ##Usage##
 
+Attach to your project - single file with implementation of Earley algorithm: https://rawgithub.com/lagodiuk/earley-parser-js/master/earley-oop.min.js
+
 ###Grammar with hardcoded terminal symbols###
 ```javascript
 // Define grammar
@@ -92,7 +94,7 @@ for (var i in trees) {
      console.log(JSON.stringify(trees[i]))
 }
 ```
-###Traversing parsed tree
+###Traversing parsed trees
 Following snippet shows how to transform parsed trees into nested HTML lists:
 ```javascript
 function toNestedList(tree) {
