@@ -16,7 +16,26 @@ Earley parser performs particularly well when the rules are written left-recursi
 
 ###Online demo###
 
-https://jsfiddle.net/vsf982m9/embedded/result/
+Parser of arithmetic expressions: https://jsfiddle.net/vsf982m9/embedded/result/
+
+```javascript
+var grammar = new tinynlp.Grammar([
+   'R -> N',
+   'S -> S add_sub M | M',
+   'M -> M mul_div T | T',
+   'N -> S lt_gt S | S',
+   'T -> num | ( S )',
+]);
+
+grammar.terminalSymbols = function(token) {
+   if ('<' === token || '>' === token) return ['lt_gt'];
+   if ('+' === token || '-' === token) return ['add_sub'];
+   if ('*' === token || '/' === token) return ['mul_div'];
+   if ('(' === token) return ['('];
+   if (')' === token) return [')'];
+   return ['num'];
+}
+```
 
 ![Parsing arithmetic expressions demo](https://raw.githubusercontent.com/lagodiuk/earley-parser-js/master/screenshot_live_demo.png)
 
