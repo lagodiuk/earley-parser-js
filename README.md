@@ -33,6 +33,7 @@ grammar.terminalSymbols = function(token) {
    if ('*' === token || '/' === token) return ['mul_div'];
    if ('(' === token) return ['('];
    if (')' === token) return [')'];
+   // Otherwise - token considered as a number:
    return ['num'];
 }
 ```
