@@ -14,6 +14,12 @@ Complexity of Earley parsing algorithm (in terms of *n* - the length of the pars
 
 Earley parser performs particularly well when the rules are written left-recursively.
 
+###Online demo###
+
+https://jsfiddle.net/vsf982m9/embedded/result/
+
+![Parsing arithmetic expressions demo](https://raw.githubusercontent.com/lagodiuk/earley-parser-js/master/screenshot_live_demo.png)
+
 ##Usage##
 
 Attach to your project - single file with implementation of Earley algorithm: https://rawgithub.com/lagodiuk/earley-parser-js/master/earley-oop.min.js
