@@ -291,25 +291,25 @@ var tinynlp = (function(){
     return exports;
 })();
 //------------------------------------------------------------------------------------
-
+/*
 var grammar = new tinynlp.Grammar([
     'R -> S',
     'S -> S add_sub M | M | num',
     'M -> M mul_div T | T | num',
     'T -> num',
-    ///*
+    ///
     'num -> 2 | 3 | 4',
     'add_sub -> + | -',
     'mul_div -> * | /'
-    //*/
+    ///
 ]);
-/*
-grammar.terminalSymbols = function( token ) {
-if( '+' === token || '-' === token ) return ['add_sub'];
-if( '*' === token || '/' === token ) return ['mul_div'];
-return ['num'];
-}
-*/
+
+//grammar.terminalSymbols = function( token ) {
+//if( '+' === token || '-' === token ) return ['add_sub'];
+//if( '*' === token || '/' === token ) return ['mul_div'];
+//return ['num'];
+//}
+
 var chart = tinynlp.parse('2 + 3 * 4'.split(' '), grammar, 'R');
 console.log('\n')
 var state = chart.getFinishedRoot('R');
@@ -335,3 +335,4 @@ function displayTree(tree) {
     builder.push('</li>')
     return builder.join('');
 }
+*/
