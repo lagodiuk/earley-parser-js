@@ -1,4 +1,8 @@
 function init() {
+
+    // Switch On/Off logging of Earley algorithm details
+    //tinynlp.logging(true);
+
     var grammar = new tinynlp.Grammar([
         'R -> N',
         'S -> S add_sub M | M',

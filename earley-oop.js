@@ -35,6 +35,11 @@ var tinynlp = (function(){
     
     //------------------------------------------------------------------------------------
     
+    loggingOn = false;
+    function logging(allow) {
+        loggingOn = allow;
+    }
+
     function Chart(tokens) {
         this.idToState = {};
         this.currentId = 0;
@@ -78,11 +83,13 @@ var tinynlp = (function(){
         return null;
     }
     Chart.prototype.log = function(column) {
-        console.log('-------------------')
-        console.log('Column: ' + column)
-        console.log('-------------------')
-        for (var j in this.chart[column]) {
-            console.log(this.chart[column][j].toString())
+        if(loggingOn) {
+            console.log('-------------------')
+            console.log('Column: ' + column)
+            console.log('-------------------')
+            for (var j in this.chart[column]) {
+                console.log(this.chart[column][j].toString())
+            }
         }
     }
     
@@ -288,5 +295,6 @@ var tinynlp = (function(){
     exports.State = State;
     exports.Chart = Chart;
     exports.parse = parse;
+    exports.logging = logging;
     return exports;
 })();
