@@ -172,6 +172,10 @@ var tinynlp = (function(){
     State.prototype.scanner = function(grammar, chart, token) {
         var term = this.rhs[this.dot];
         var tokenTerminals = token ? grammar.terminalSymbols(token) : [];
+        if(!tokenTerminals) {
+            // in case if grammar.terminalSymbols(token) returned 'undefined' or null
+            tokenTerminals = [];
+        }
         tokenTerminals.push(token);
         for (var i in tokenTerminals) {
             if (term == tokenTerminals[i]) {
