@@ -1,6 +1,15 @@
 # earley-parser-js
 Tiny JavaScript implementation of context-free languages parser - [Earley parser](https://en.wikipedia.org/wiki/Earley_parser)
 
+### Table of contents
+1. [General information about Earley parsing algorithm](#general-information) <br/>
+2. [Online demo](#online-demo) <br/>
+3. [Quick start](#usage) <br/>
+3.1 [Grammar with hardcoded terminal symbols](#grammar-with-hardcoded-terminal-symbols) <br/>
+3.2 [Customizing logic of tokens classification into terminal symbols](#customizing-logic-of-tokens-classification-into-terminal-symbols) <br/>
+3.3 [Traversing parsed trees (parsing-forest)](#traversing-parsed-trees) <br/>
+3.4 [Parsing tiny subset of English language grammar](#parsing-tiny-subset-of-english-language-grammar)
+
 ###General information###
 
 The Earley parser is an algorithm for parsing strings that belong to a given [context-free language](https://en.wikipedia.org/wiki/Context-free_language) (the algorithm, named after its inventor, [Jay Earley](https://en.wikipedia.org/wiki/Jay_Earley)).
@@ -120,7 +129,7 @@ for (var i in trees) {
      console.log(JSON.stringify(trees[i]))
 }
 ```
-###Traversing parsed trees
+###Traversing parsed trees###
 Following snippet shows how to transform parsed trees into nested HTML lists:
 ```javascript
 function toNestedList(tree) {
@@ -145,5 +154,41 @@ Example of usage:
 for (var i in trees) {
      htmlRepresentstion = '<ul>' + toNestedList(trees[i]) + '</ul>'
      // embed htmlRepresentstion into HTML page
+}
+```
+###Parsing tiny subset of English language grammar###
+Grammar taken from: https://en.wikipedia.org/wiki/CYK_algorithm#Example
+```javascript
+var grammar = new tinynlp.Grammar([
+    'S -> NP VP',
+    'VP -> VP PP | V NP | V',
+    'PP -> P NP',
+    'NP -> Det N | N'
+]);
+
+grammar.terminalSymbols = function(token) {
+    if(token == 'eats') return ['V'];
+    if(token == 'fish') return ['N'];
+    if(token == 'fork') return ['N'];
+    if(token == 'she') return ['N'];
+    if(token == 'a') return ['Det'];
+    if(token == 'with') return ['P'];
+    // otherwise:
+    return [];
+}
+
+// Tokenizing sentence
+var tokens = 'she eats a fish with a fork'.split(' ');
+
+// Parsing
+var rootRule = 'S';
+var chart = tinynlp.parse(tokens, grammar, rootRule);
+
+// Get array with all parsed trees
+// In case of ambiguous grammar - there might be more than 1 parsing tree
+var trees =  chart.getFinishedRoot(rootRule).traverse();
+
+for (var i in trees) {
+   // visit each parse tree
 }
 ```
