@@ -1,0 +1,35 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <script type="text/javascript" src="../earley-oop.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="./demo.js"></script>
+</head>
+<body onLoad="init()">
+
+<textarea name="Text1" cols="40" rows="13" id="grm">
+S -> NP VP
+VP -> VP PP | V NP | V
+PP -> P NP
+NP -> Det N | N | Pn | Det A N | A NP
+A -> Adv A | A A
+Adv -> too | very | quite
+Pn -> she | he
+A -> fresh | tasty | silver
+N -> fish | fork | apple
+V -> eats 
+Det -> a | an | the
+P -> with</textarea>
+<br/>
+    <a href="#" class="example">she eats</a> <br/>
+    <a href="#" class="example">she eats an apple</a> <br/>
+    <a href="#" class="example">she eats fresh tasty apple</a> <br/>
+    <a href="#" class="example">she eats a quite tasty apple</a> <br/>
+    <a href="#" class="example">she eats a fish</a> <br/>
+    <a href="#" class="example">she eats a fish with a fork</a> <br/>
+    <a href="#" class="example">she eats a fish with a silver fork</a> <br/>
+    <a href="#" class="example">she eats a quite fresh fish with a silver fork</a> <br/>
+    <input type="text" size="50" id="txt"/>
+    <div id="dv"></div>
+</body>
+</html>

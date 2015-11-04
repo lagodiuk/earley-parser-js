@@ -216,11 +216,15 @@ var tinynlp = (function(){
             if (this.lhs != this.rhs) {
                 // prettify leafs of parse tree
                 subtrees.push({
-                    root: this.rhs
+                    root: this.rhs,
+                    left: this.left,
+                    right: this.right
                 });
             }
             return [{
                 root: this.lhs,
+                left: this.left,
+                right: this.right,
                 subtrees: subtrees
             }];
         }
@@ -236,7 +240,9 @@ var tinynlp = (function(){
         var result = [];
         for (var i in possibleSubTrees) {
             result.push({
-                root: this.lhs,
+                root: this.lhs, 
+                left: this.left,
+                right: this.right,
                 subtrees: possibleSubTrees[i]
             })
         }
@@ -252,9 +258,11 @@ var tinynlp = (function(){
             return;
         }
         for (var j in arrOfArr[i]) {
-            stack.push(arrOfArr[i][j]);
-            combinations(arrOfArr, i + 1, stack, result);
-            stack.pop();
+            if(stack.length == 0 || stack[stack.length - 1].right == arrOfArr[i][j].left) {
+                stack.push(arrOfArr[i][j]);
+                combinations(arrOfArr, i + 1, stack, result);
+                stack.pop();
+            }
         }
     }
     
