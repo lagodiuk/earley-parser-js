@@ -50,11 +50,13 @@ grammar.terminalSymbols = function(token) {
 }
 ```
 
-![Parsing arithmetic expressions demo](https://raw.githubusercontent.com/lagodiuk/earley-parser-js/master/screenshot_live_demo.png)
+![Parsing arithmetic expressions demo](https://raw.githubusercontent.com/lagodiuk/earley-parser-js/master/img/screenshot_1.png)
 
 ####Parser of a tiny subset of English grammar####
 
 Parser of a tiny subset of English grammar: https://jsfiddle.net/2mb3w9c1/4/embedded/result/
+
+![Parser of a tiny subset of English grammar](https://raw.githubusercontent.com/lagodiuk/earley-parser-js/master/img/screenshot_2.png)
 
 ##Usage##
 
