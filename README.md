@@ -26,6 +26,7 @@ Earley parser performs particularly well when the rules are written left-recursi
 ###Online demo###
 
 Parser of arithmetic expressions: https://jsfiddle.net/vsf982m9/embedded/result/
+Parser of a tiny subset of English grammar: https://jsfiddle.net/2mb3w9c1/4/embedded/result/
 
 ```javascript
 var grammar = new tinynlp.Grammar([
