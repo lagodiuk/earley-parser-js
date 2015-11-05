@@ -77,6 +77,8 @@ var tinynlp = (function(){
         for(var i in lastColumn) {
             var state = lastColumn[i];
             if(state.complete() && state.getLeftHandSide() == rootRule ) {
+                // TODO: there might be more than one root rule in the end
+                // so, there is needed to return an array with all these roots
                 return state;
             }
         }
