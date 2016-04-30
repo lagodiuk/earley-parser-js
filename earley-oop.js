@@ -33,7 +33,8 @@ var tinynlp = (function(){
             return null;
     }
     Grammar.prototype.isEpsilonProduction = function(term) {
-        // This is need for handling of epsilon (empty) productions
+        // This is needed for handling of epsilon (empty) productions
+        // TODO: get rid of this hardcode name for epsilon productions
         return "_EPSILON_" == term;
     }
     
@@ -60,7 +61,7 @@ var tinynlp = (function(){
             var chartState = chartColumn[x];
             if (newState.equals(chartState)) {
             
-                var changed = false; // This is need for handling of epsilon (empty) productions
+                var changed = false; // This is needed for handling of epsilon (empty) productions
                 
                 changed = chartState.appendRefsToChidStates(newState.getRefsToChidStates());
                 return changed;
@@ -70,7 +71,7 @@ var tinynlp = (function(){
         this.idToState[this.currentId] = newState;
         this.currentId++;
         
-        var changed = true; // This is need for handling of epsilon (empty) productions
+        var changed = true; // This is needed for handling of epsilon (empty) productions
         return changed;
     }
     Chart.prototype.getStatesInColumn = function(index) {
@@ -165,7 +166,7 @@ var tinynlp = (function(){
     }
     State.prototype.appendRefsToChidStates = function(refs) {
     
-        var changed = false; // This is need for handling of epsilon (empty) productions
+        var changed = false; // This is needed for handling of epsilon (empty) productions
         
         for (var i = 0; i < refs.length; i++) {
             if (refs[i]) {
@@ -182,11 +183,11 @@ var tinynlp = (function(){
     State.prototype.predictor = function(grammar, chart) {
         var nonTerm = this.rhs[this.dot];
         var rhss = grammar.getRightHandSides(nonTerm);
-        var changed = false; // This is need for handling of epsilon (empty) productions
+        var changed = false; // This is needed for handling of epsilon (empty) productions
         for (var i in rhss) {
             var rhs = rhss[i];
             
-            // This is need for handling of epsilon (empty) productions
+            // This is needed for handling of epsilon (empty) productions
             // Just skipping over epsilon productions in right hand side
             // However, this approach might lead to the smaller amount of parsing tree variants
             var dotPos = 0;
@@ -202,7 +203,7 @@ var tinynlp = (function(){
     State.prototype.scanner = function(grammar, chart, token) {
         var term = this.rhs[this.dot];
         
-        var changed = false; // This is need for handling of epsilon (empty) productions
+        var changed = false; // This is needed for handling of epsilon (empty) productions
         
         var tokenTerminals = token ? grammar.terminalSymbols(token) : [];
         if(!tokenTerminals) {
@@ -222,14 +223,14 @@ var tinynlp = (function(){
     }
     State.prototype.completer = function(grammar, chart) {
     
-        var changed = false; // This is need for handling of epsilon (empty) productions
+        var changed = false; // This is needed for handling of epsilon (empty) productions
         
         var statesInColumn = chart.getStatesInColumn(this.left);
         for (var i in statesInColumn) {
             var existingState = statesInColumn[i];
             if (existingState.rhs[existingState.dot] == this.lhs) {
             
-                // This is need for handling of epsilon (empty) productions
+                // This is needed for handling of epsilon (empty) productions
                 // Just skipping over epsilon productions in right hand side
                 // However, this approach might lead to the smaller amount of parsing tree variants
                 var dotPos = existingState.dot + 1;
@@ -331,7 +332,7 @@ var tinynlp = (function(){
         }
         for (var i = 0; i < tokens.length + 1; i++) {
         
-            var changed = true; // This is need for handling of epsilon (empty) productions
+            var changed = true; // This is needed for handling of epsilon (empty) productions
             
             while(changed) {
                 changed = false;
