@@ -1,3 +1,17 @@
+//   Copyright 2015 Yurii Lahodiuk
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+
 var tinynlp = (function(){
     
     function Grammar(rules) {
@@ -31,11 +45,16 @@ var tinynlp = (function(){
                 return rhss;
             }
             return null;
-        }
+    }
+    Grammar.prototype.isEpsilonProduction = function(term) {
+        // This is needed for handling of epsilon (empty) productions
+        // TODO: get rid of this hardcode name for epsilon productions
+        return "_EPSILON_" == term;
+    }
     
     //------------------------------------------------------------------------------------
     
-    loggingOn = false;
+    loggingOn = true;
     function logging(allow) {
         loggingOn = allow;
     }
@@ -55,13 +74,19 @@ var tinynlp = (function(){
         for (var x in chartColumn) {
             var chartState = chartColumn[x];
             if (newState.equals(chartState)) {
-                chartState.appendRefsToChidStates(newState.getRefsToChidStates());
-                return;
+            
+                var changed = false; // This is needed for handling of epsilon (empty) productions
+                
+                changed = chartState.appendRefsToChidStates(newState.getRefsToChidStates());
+                return changed;
             }
         }
         chartColumn.push(newState);
         this.idToState[this.currentId] = newState;
         this.currentId++;
+        
+        var changed = true; // This is needed for handling of epsilon (empty) productions
+        return changed;
     }
     Chart.prototype.getStatesInColumn = function(index) {
         return this.chart[index];
@@ -154,25 +179,46 @@ var tinynlp = (function(){
         return this.ref;
     }
     State.prototype.appendRefsToChidStates = function(refs) {
+    
+        var changed = false; // This is needed for handling of epsilon (empty) productions
+        
         for (var i = 0; i < refs.length; i++) {
             if (refs[i]) {
                 for (var j in refs[i]) {
+                    if(this.ref[i][j] != refs[i][j]) {
+                    	changed = true;
+                    }
                     this.ref[i][j] = refs[i][j];
                 }
             }
         }
+        return changed;
     }
     State.prototype.predictor = function(grammar, chart) {
         var nonTerm = this.rhs[this.dot];
         var rhss = grammar.getRightHandSides(nonTerm);
+        var changed = false; // This is needed for handling of epsilon (empty) productions
         for (var i in rhss) {
             var rhs = rhss[i];
-            var newState = new State(nonTerm, rhs, 0, this.right, this.right);
-            chart.addToChart(newState, this.right);
+            
+            // This is needed for handling of epsilon (empty) productions
+            // Just skipping over epsilon productions in right hand side
+            // However, this approach might lead to the smaller amount of parsing tree variants
+            var dotPos = 0;
+            while(rhs && (dotPos < rhs.length) && (grammar.isEpsilonProduction(rhs[dotPos]))) {
+            	dotPos++;
+            }
+            
+            var newState = new State(nonTerm, rhs, dotPos, this.right, this.right);
+            changed |= chart.addToChart(newState, this.right);
         }
+        return changed;
     }
     State.prototype.scanner = function(grammar, chart, token) {
         var term = this.rhs[this.dot];
+        
+        var changed = false; // This is needed for handling of epsilon (empty) productions
+        
         var tokenTerminals = token ? grammar.terminalSymbols(token) : [];
         if(!tokenTerminals) {
             // in case if grammar.terminalSymbols(token) returned 'undefined' or null
@@ -182,17 +228,31 @@ var tinynlp = (function(){
         for (var i in tokenTerminals) {
             if (term == tokenTerminals[i]) {
                 var newState = new State(term, [token], 1, this.right, this.right + 1);
-                chart.addToChart(newState, this.right + 1);
+                changed |= chart.addToChart(newState, this.right + 1);
                 break;
             }
         }
+        
+        return changed;
     }
-    State.prototype.completer = function(chart) {
+    State.prototype.completer = function(grammar, chart) {
+    
+        var changed = false; // This is needed for handling of epsilon (empty) productions
+        
         var statesInColumn = chart.getStatesInColumn(this.left);
         for (var i in statesInColumn) {
             var existingState = statesInColumn[i];
             if (existingState.rhs[existingState.dot] == this.lhs) {
-                var newState = new State(existingState.lhs, existingState.rhs, existingState.dot + 1, existingState.left, this.right);
+            
+                // This is needed for handling of epsilon (empty) productions
+                // Just skipping over epsilon productions in right hand side
+                // However, this approach might lead to the smaller amount of parsing tree variants
+                var dotPos = existingState.dot + 1;
+                while(existingState.rhs && (dotPos < existingState.rhs.length) && (grammar.isEpsilonProduction(existingState.rhs[dotPos]))) {
+                  dotPos++;
+                }
+                
+                var newState = new State(existingState.lhs, existingState.rhs, dotPos, existingState.left, this.right);
                 // copy existing refs to new state
                 newState.appendRefsToChidStates(existingState.ref);
                 // add ref to current state
@@ -200,7 +260,7 @@ var tinynlp = (function(){
                 rf[existingState.dot] = {};
                 rf[existingState.dot][this.id] = this;
                 newState.appendRefsToChidStates(rf)
-                chart.addToChart(newState, this.right);
+                changed |= chart.addToChart(newState, this.right);
             }
         }
     }
@@ -285,19 +345,25 @@ var tinynlp = (function(){
             chart.addToChart(initialState, 0);
         }
         for (var i = 0; i < tokens.length + 1; i++) {
-            j = 0;
-            while (j < chart.countStatesInColumn(i)) {
-                var state = chart.getStatesInColumn(i)[j];
-                if (!state.complete()) {
-                    if (state.expectedNonTerminal(grammar)) {
-                        state.predictor(grammar, chart);
+        
+            var changed = true; // This is needed for handling of epsilon (empty) productions
+            
+            while(changed) {
+                changed = false;
+                j = 0;
+                while (j < chart.countStatesInColumn(i)) {
+                    var state = chart.getStatesInColumn(i)[j];
+                    if (!state.complete()) {
+                        if (state.expectedNonTerminal(grammar)) {
+                            changed |= state.predictor(grammar, chart);
+                        } else {
+                            changed |= state.scanner(grammar, chart, tokens[i]);
+                        }
                     } else {
-                        state.scanner(grammar, chart, tokens[i]);
+                        changed |= state.completer(grammar, chart);
                     }
-                } else {
-                    state.completer(chart);
+                    j++;
                 }
-                j++;
             }
             chart.log(i)
         }
