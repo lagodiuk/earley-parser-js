@@ -2,30 +2,31 @@ function init() {
 
 var margin = {
         top: 40, 
-        right: 140, 
-        bottom: 40, left: 140},
+        right: 40, 
+        bottom: 40, 
+        left: 40
+    },
 	width = window.innerWidth - margin.right - margin.left,
-	height = window.innerHeight - margin.top - margin.bottom,
-    center = width / 2;
+	height = window.innerHeight - margin.top - margin.bottom;
 	
 var i = 0;
 
 // Cluster layout https://bl.ocks.org/mbostock/4063570
-var tree = d3.layout.cluster().nodeSize([70, 40]);
+var tree = d3.layout.cluster().size([width, height]);
 
 var diagonal = d3.svg.diagonal()
 	.projection(function(d) { return [d.x, d.y]; });
 
 var svg = d3.select("#body").append("svg")
-	.attr("width", width + margin.right + margin.left)
+	.attr("width", width + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
     .call(zm = d3.behavior.zoom().scaleExtent([0.1,3]).on("zoom", redraw))
     .append("g")
-	.attr("transform", "translate(" + center + "," + margin.top + ")");
+	.attr("transform", "translate(" + 0 + "," + margin.top + ")");
     
 //necessary so that zoom knows where to zoom and unzoom from
 // http://jsfiddle.net/augburto/YMa2y/
-zm.translate([center, margin.top]);
+zm.translate([0, margin.top]);
 
 $('.example').click(function(){     
     $('#txt').val($(this).text());
