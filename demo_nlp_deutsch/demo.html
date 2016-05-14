@@ -1,0 +1,157 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <script type="text/javascript" src="../earley-oop.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <!-- load the d3.js library -->	
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="./demo.js"></script>
+</head>
+
+<body onLoad="init()">
+
+<textarea name="Text1" cols="40" rows="13" id="grm" class="txtarea">
+Root -> Satz
+
+Satz -> Hauptsatz
+Satz -> Hauptsatz , und Satz
+Satz -> Hauptsatz , Nebensatz
+
+Hauptsatz -> Verb_Pharse
+Hauptsatz -> Verb_Pharse  Object_Akk
+Hauptsatz -> Verb_Pharse  Object_Akk  Preposition_Pharce
+Hauptsatz -> Verb_Pharse_Modal  Verb_t_inf
+Hauptsatz -> Verb_Pharse_Modal  Object_Akk  Verb_t_inf
+Hauptsatz -> Verb_Pharse_Modal  Object_Akk  Preposition_Pharce  Verb_t_inf
+
+Verb_Pharse -> Subject_I_sn    Verb_t_I_sn
+Verb_Pharse -> Subject_II_sn   Verb_t_II_sn
+Verb_Pharse -> Subject_III_sn  Verb_t_III_sn
+Verb_Pharse -> Subject_I_pl    Verb_t_I_pl
+Verb_Pharse -> Subject_II_pl   Verb_t_II_pl
+Verb_Pharse -> Subject_III_pl  Verb_t_III_pl
+
+Verb_Pharse_Modal -> Subject_I_sn    Verb_modal_I_sn
+Verb_Pharse_Modal -> Subject_II_sn   Verb_modal_II_sn
+Verb_Pharse_Modal -> Subject_III_sn  Verb_modal_III_sn
+Verb_Pharse_Modal -> Subject_I_pl    Verb_modal_I_pl
+Verb_Pharse_Modal -> Subject_II_pl   Verb_modal_II_pl
+Verb_Pharse_Modal -> Subject_III_pl  Verb_modal_III_pl
+
+Nebensatz -> Konjunktion  Subject_I_sn    Object_Akk  Verb_t_I_sn
+Nebensatz -> Konjunktion  Subject_II_sn   Object_Akk  Verb_t_II_sn
+Nebensatz -> Konjunktion  Subject_III_sn  Object_Akk  Verb_t_III_sn
+Nebensatz -> Konjunktion  Subject_I_pl    Object_Akk  Verb_t_I_pl
+Nebensatz -> Konjunktion  Subject_II_pl   Object_Akk  Verb_t_II_pl
+Nebensatz -> Konjunktion  Subject_III_pl  Object_Akk  Verb_t_III_pl
+
+Konjunktion -> weil | obwohl | wenn | dass
+
+Subject_I_sn   -> Pers_Pron_Nom_I_sn
+Subject_II_sn  -> Pers_Pron_Nom_II_sn
+Subject_III_sn -> Pers_Pron_Nom_III_sn
+Subject_I_pl   -> Pers_Pron_Nom_I_pl
+Subject_II_pl  -> Pers_Pron_Nom_II_pl
+Subject_III_pl -> Pers_Pron_Nom_III_pl
+Subject_III_sn -> man
+Subject_III_sn -> Artikel_Nom_M   Nomen_M
+Subject_III_sn -> Artikel_Nom_F   Nomen_F
+Subject_III_sn -> Artikel_Nom_N   Nomen_N
+Subject_III_sn -> Artikel_Nom_Pl  Nomen_Pl
+Subject_III_sn -> Artikel_Nom_M   Adj_Nom_M   Nomen_M
+Subject_III_sn -> Artikel_Nom_F   Adj_Nom_F   Nomen_F
+Subject_III_sn -> Artikel_Nom_N   Adj_Nom_N   Nomen_N
+Subject_III_sn -> Artikel_Nom_Pl  Adj_Nom_Pl  Nomen_Pl
+
+Object_Akk -> Artikel_Akk_M   Nomen_M
+Object_Akk -> Artikel_Akk_F   Nomen_F
+Object_Akk -> Artikel_Akk_N   Nomen_N
+Object_Akk -> Artikel_Akk_Pl  Nomen_Pl
+Object_Akk -> Artikel_Akk_M   Adj_Akk_M   Nomen_M
+Object_Akk -> Artikel_Akk_F   Adj_Akk_F   Nomen_F
+Object_Akk -> Artikel_Akk_N   Adj_Akk_N   Nomen_N
+Object_Akk -> Artikel_Akk_Pl  Adj_Akk_Pl  Nomen_Pl
+Object_Akk -> Object_Akk und Object_Akk
+
+Preposition_Pharce -> Prep  Object_Dat
+
+Object_Dat -> Artikel_Dat_M   Nomen_M
+Object_Dat -> Artikel_Dat_F   Nomen_F
+Object_Dat -> Artikel_Dat_N   Nomen_N
+Object_Dat -> Artikel_Dat_Pl  Nomen_Pl
+Object_Dat -> Artikel_Dat_M   Adj_Dat_M   Nomen_M
+Object_Dat -> Artikel_Dat_F   Adj_Dat_F   Nomen_F
+Object_Dat -> Artikel_Dat_N   Adj_Dat_N   Nomen_N
+Object_Dat -> Artikel_Dat_Pl  Adj_Dat_Pl  Nomen_Pl
+Object_Dat -> Object_Dat und Object_Dat
+
+Prep -> auf | an | neben | hinten | vor | von | unten | in
+
+Artikel_Nom_M  -> der | ein  | kein
+Artikel_Nom_F  -> die | eine | keine
+Artikel_Nom_N  -> das | ein  | kein
+Artikel_Nom_Pl -> die | keine
+
+Artikel_Akk_M  -> den | einen | keinen
+Artikel_Akk_F  -> die | eine  | keine
+Artikel_Akk_N  -> das | ein   | kein
+Artikel_Akk_Pl -> die | keine
+
+Artikel_Dat_M  -> dem | einem | keinem
+Artikel_Dat_F  -> der | einer | keiner
+Artikel_Dat_N  -> dem | einem | keinem
+Artikel_Dat_Pl -> den | keinen
+
+Pers_Pron_Nom_I_sn   -> ich
+Pers_Pron_Nom_I_pl   -> wir
+Pers_Pron_Nom_II_sn  -> du
+Pers_Pron_Nom_II_pl  -> ihr
+Pers_Pron_Nom_III_sn -> sie | er | es
+Pers_Pron_Nom_III_pl -> sie | Sie
+
+Adj_Nom_M  -> kleiner | leckerer | grosser
+Adj_Nom_F  -> kleine  | leckere  | grosse
+Adj_Nom_N  -> klein   | lecker   | gross
+Adj_Nom_Pl -> kleine  | leckere  | grosse
+
+Adj_Akk_M  -> kleinen | leckeren | grossen
+Adj_Akk_F  -> kleine  | leckere  | grosse
+Adj_Akk_N  -> klein   | lecker   | gross
+Adj_Akk_Pl -> kleine  | leckere  | grosse
+
+Adj_Dat_M  -> kleinen | leckeren | grossen
+Adj_Dat_F  -> kleinen | leckeren | grossen
+Adj_Dat_N  -> kleinen | leckeren | grossen
+Adj_Dat_Pl -> kleinen | leckeren | grossen
+
+Verb_t_inf    -> essen | brauchen | haben | geben | legen
+Verb_t_I_sn   -> esse  | brauche  | habe  | gebe  | lege
+Verb_t_II_sn  -> isst  | brauchst | hast  | gibst | legst
+Verb_t_III_sn -> isst  | braucht  | hat   | gibt  | legt
+Verb_t_I_pl   -> essen | brauchen | haben | geben | legen
+Verb_t_II_pl  -> esst  | braucht  | habt  | gibt  | legt
+Verb_t_III_pl -> essen | brauchen | haben | geben | legen
+
+Verb_modal_inf    -> wollen | sollen
+Verb_modal_I_sn   -> will   | soll
+Verb_modal_II_sn  -> willst | sollst
+Verb_modal_III_sn -> will   | soll
+Verb_modal_I_pl   -> wollen | sollen
+Verb_modal_II_pl  -> wollt  | sollt
+Verb_modal_III_pl -> wollen | sollen
+
+Nomen_M  -> Hund | Mann | Apfel | Zug | Tisch | Fisch | Saft | Hunger
+Nomen_F  -> Orange | Tasche | Frau | Wohnung | Gabel | Wand
+Nomen_N  -> Fenster | Brot | Madchen | Zimmer | Bild
+Nomen_Pl -> Orangen</textarea>
+<br/>
+<div class="txtarea">
+    <a href="#" class="example">ich esse den Apfel</a> <br/>
+    <a href="#" class="example">der Mann isst den Apfel, und die Frau isst die Orange, obwohl sie keinen Hunger haben</a> <br/>
+</div>
+<div class="txtarea">
+    <input type="text" size="50" id="txt"/>
+</div>
+<div id="body" style="border-style: solid;"></div>
+</body>
+</html>
