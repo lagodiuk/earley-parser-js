@@ -11,7 +11,7 @@ Tiny JavaScript implementation of context-free languages parser - [Earley parser
 3.2 [Customizing logic of tokens classification into terminal symbols](#customizing-logic-of-tokens-classification-into-terminal-symbols) <br/>
 3.3 [Traversing parsed trees (parsing-forest)](#traversing-parsed-trees) <br/>
 3.4 [Parsing tiny subset of English language grammar](#parsing-tiny-subset-of-english-language-grammar) <br/>
-4. [Used Tools](#used-tools)
+4. [Used Tools and Libraries](#used-tools)
 
 ###General information###
 
@@ -203,5 +203,13 @@ for (var i in trees) {
 }
 ```
 
-###Used Tools###
-[Google Closure Compiler Service](https://closure-compiler.appspot.com/home) was used for minimization of the library.
+###Used Tools and Libraries###
+Implementation of the Earley Parser is self-sufficient (https://github.com/lagodiuk/earley-parser-js/blob/master/earley-oop.js).
+
+However, for producing of the minimized variant of library was used the [Google Closure Compiler Service](https://closure-compiler.appspot.com/home).
+
+Additionally, some of the demo examples are using:
+- [jQuery](https://jquery.com/)
+- [D3.js](https://d3js.org/)
+
+Some of the demo examples are currently hosted on https://jsfiddle.net/
