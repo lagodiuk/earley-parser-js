@@ -11,7 +11,7 @@ Tiny JavaScript implementation of context-free languages parser - [Earley parser
 3.2 [Customizing logic of tokens classification into terminal symbols](#customizing-logic-of-tokens-classification-into-terminal-symbols) <br/>
 3.3 [Traversing parsed trees (parsing-forest)](#traversing-parsed-trees) <br/>
 3.4 [Parsing tiny subset of English language grammar](#parsing-tiny-subset-of-english-language-grammar) <br/>
-4. [Used Tools and Libraries](#used-tools)
+4. [Used Tools and Libraries](#used-tools-and-libraries)
 
 ###General information###
 
