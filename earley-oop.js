@@ -1,4 +1,4 @@
-//   Copyright 2015 Yurii Lahodiuk
+//   Copyright 2015 Yurii Lahodiuk (yura.lagodiuk@gmail.com)
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -263,6 +263,8 @@ var tinynlp = (function(){
                 changed |= chart.addToChart(newState, this.right);
             }
         }
+        
+        return changed;
     }
     
     //------------------------------------------------------------------------------------
@@ -314,16 +316,24 @@ var tinynlp = (function(){
     // Generating array of all possible combinations, e.g.:
     // input: [[1, 2, 3], [4, 5]]
     // output: [[1, 4], [1, 5], [2, 4], [2, 5], [3, 4], [3, 5]]
+    //
+    // Empty subarrays will be ignored. E.g.:
+    // input: [[1, 2, 3], []]
+    // output: [[1], [2], [3]]
     function combinations(arrOfArr, i, stack, result) {
         if (i == arrOfArr.length) {
             result.push(stack.slice());
             return;
         }
-        for (var j in arrOfArr[i]) {
-            if(stack.length == 0 || stack[stack.length - 1].right == arrOfArr[i][j].left) {
-                stack.push(arrOfArr[i][j]);
-                combinations(arrOfArr, i + 1, stack, result);
-                stack.pop();
+        if(arrOfArr[i].length == 0) {
+            combinations(arrOfArr, i + 1, stack, result);
+        } else {
+            for (var j in arrOfArr[i]) {
+                if(stack.length == 0 || stack[stack.length - 1].right == arrOfArr[i][j].left) {
+                    stack.push(arrOfArr[i][j]);
+                    combinations(arrOfArr, i + 1, stack, result);
+                    stack.pop();
+                }
             }
         }
     }
