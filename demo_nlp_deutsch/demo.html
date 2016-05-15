@@ -9,8 +9,12 @@
 </head>
 
 <body onLoad="init()">
-
-<textarea name="Text1" cols="40" rows="13" id="grm" class="txtarea">
+<div class="txtarea">
+    <input type="text" size="50" id="txt"/>
+</div>
+<div id="body" style="border-style: solid;"></div>
+<div class="grammar_div">
+<textarea name="Text1" rows="40" id="grm" class="txtarea">
 Root -> Satz
 
 Satz -> Hauptsatz
@@ -144,14 +148,11 @@ Nomen_M  -> Hund | Mann | Apfel | Zug | Tisch | Fisch | Saft | Hunger
 Nomen_F  -> Orange | Tasche | Frau | Wohnung | Gabel | Wand
 Nomen_N  -> Fenster | Brot | Madchen | Zimmer | Bild
 Nomen_Pl -> Orangen</textarea>
+</div>
 <br/>
 <div class="txtarea">
     <a href="#" class="example">ich esse den Apfel</a> <br/>
     <a href="#" class="example">der Mann isst den Apfel, und die Frau isst die Orange, obwohl sie keinen Hunger haben</a> <br/>
 </div>
-<div class="txtarea">
-    <input type="text" size="50" id="txt"/>
-</div>
-<div id="body" style="border-style: solid;"></div>
 </body>
 </html>

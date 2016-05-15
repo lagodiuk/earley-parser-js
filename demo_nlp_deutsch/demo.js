@@ -6,7 +6,7 @@ var margin = {
         bottom: 40, 
         left: 40
     },
-	width = window.innerWidth - margin.right - margin.left,
+	width = $("#body").width() - margin.right - margin.left,
 	height = window.innerHeight - margin.top - margin.bottom;
 	
 var i = 0;

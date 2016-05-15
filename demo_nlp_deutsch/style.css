@@ -1,13 +1,31 @@
-	.node circle {
-	  fill: #fff;
-	  stroke: steelblue;
-	  stroke-width: 3px;
-	}
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
 
-	.node text { font: 12px sans-serif; }
+.node text { font: 12px sans-serif; }
 
-	.link {
-	  fill: none;
-	  stroke: #ccc;
-	  stroke-width: 2px;
-	}
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+#txt {
+  width:90%;
+  margin-bottom:20px;
+}
+
+#body {
+  width:90%;
+}
+
+.grammar_div {
+  width:90%;
+  margin-top:20px;
+}
+
+#grm {
+  width:100%;
+}
