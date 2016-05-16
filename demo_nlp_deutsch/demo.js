@@ -11,9 +11,6 @@ var margin = {
 	
 var i = 0;
 
-// Cluster layout https://bl.ocks.org/mbostock/4063570
-var tree = d3.layout.cluster().size([width, height]);
-
 var diagonal = d3.svg.diagonal()
 	.projection(function(d) { return [d.x, d.y]; });
 
@@ -32,6 +29,20 @@ $('.example').click(function(){
     $('#txt').val($(this).text());
     $('#txt').trigger('input');
     return false;
+});
+
+
+$( "#slider-range-min" ).slider({
+  range: "min",
+  value: 0,
+  min: 0,
+  max: 90,
+  slide: function( event, ui ) {
+    var newVal = $(this).val();
+    currentZoom = (100.0 - ui.value) / 100.0;
+    svg.selectAll("*").remove();                            
+    update(root);
+  }
 });
 
 function transform(tree) {
@@ -115,9 +126,18 @@ var nodeColors = {
     "default" : "yellow"
 }
 
+// Used for expanding of the tree during scaling-out
+var currentZoom = 1;
+
 // D3js code is taken from http://bl.ocks.org/d3noob/8326869
 // http://www.d3noob.org/2014/01/tree-diagrams-in-d3js_11.html
 function update(source) {
+
+  // Used for horizontal scaling of the tree during scaling-out
+  var zoom = (currentZoom && currentZoom < 1) ? currentZoom : 1;
+  
+  // Cluster layout https://bl.ocks.org/mbostock/4063570
+  var tree = d3.layout.cluster().size([width / zoom, height]);
 
   var rectW = 40;
   var rectH = 40;
@@ -129,6 +149,7 @@ function update(source) {
 
   // Displaying the tree in a nice way
   var maxDepth = -1;
+  // Find the max depth of the tree
   nodes.forEach(function(d) { 
     maxDepth = Math.max(maxDepth, d.depth);
   });  
@@ -181,11 +202,16 @@ function update(source) {
         
         d3.select(this)
           .select('rect')
-          .attr({'width': w, 'height': h});
+          .attr({'width': w, 'height': h})
+          .attr("transform", function(d) { 
+                return "translate(" + (- (w - rectW) / 2) + "," + 0 + ")"; 
+          });
           
         d3.select(this)
           .select('text')
-          .attr("x", w / 2);
+          .attr("x", w / 2).attr("transform", function(d) { 
+                return "translate(" + (- (w - rectW) / 2) + "," + 0 + ")"; 
+          });
     });
 
   // Declare the links…
