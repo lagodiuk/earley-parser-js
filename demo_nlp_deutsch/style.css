@@ -28,6 +28,8 @@
 
 #grm {
   width:100%;
+  font-family:monospace;
+  font-size:15px;
 }
 
 #slider-range-min {
