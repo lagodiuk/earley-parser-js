@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
     <script type="text/javascript" src="../earley-oop.js"></script>
@@ -25,15 +26,26 @@
 Root -> Satz
 
 Satz -> Hauptsatz
-Satz -> Hauptsatz , und Satz
+Satz -> Nebensatz
+Satz -> Satz , Satz_Konj Satz
 Satz -> Hauptsatz , Nebensatz
+Satz -> Nebensatz , Hauptsatz_Nach
+
+Satz_Konj -> und | aber
 
 Hauptsatz -> Verb_Pharse
 Hauptsatz -> Verb_Pharse  Object_Akk
-Hauptsatz -> Verb_Pharse  Object_Akk  Preposition_Pharce
+Hauptsatz -> Verb_Pharse  Object_Akk  Preposition_Pharse
 Hauptsatz -> Verb_Pharse_Modal  Verb_t_inf
 Hauptsatz -> Verb_Pharse_Modal  Object_Akk  Verb_t_inf
-Hauptsatz -> Verb_Pharse_Modal  Object_Akk  Preposition_Pharce  Verb_t_inf
+Hauptsatz -> Verb_Pharse_Modal  Object_Akk  Preposition_Pharse  Verb_t_inf
+
+Hauptsatz_Nach -> Verb_Pharse_Rev
+Hauptsatz_Nach -> Verb_Pharse_Rev  Object_Akk
+Hauptsatz_Nach -> Verb_Pharse_Rev  Object_Akk  Preposition_Pharse
+Hauptsatz_Nach -> Verb_Pharse_Rev_Modal  Verb_t_inf
+Hauptsatz_Nach -> Verb_Pharse_Modal_Rev  Object_Akk  Verb_t_inf
+Hauptsatz_Nach -> Verb_Pharse_Modal_Rev  Object_Akk  Preposition_Pharse  Verb_t_inf
 
 Verb_Pharse -> Subject_I_sn    Verb_t_I_sn
 Verb_Pharse -> Subject_II_sn   Verb_t_II_sn
@@ -42,12 +54,26 @@ Verb_Pharse -> Subject_I_pl    Verb_t_I_pl
 Verb_Pharse -> Subject_II_pl   Verb_t_II_pl
 Verb_Pharse -> Subject_III_pl  Verb_t_III_pl
 
+Verb_Pharse_Rev -> Verb_t_I_sn    Subject_I_sn
+Verb_Pharse_Rev -> Verb_t_II_sn   Subject_II_sn
+Verb_Pharse_Rev -> Verb_t_III_sn  Subject_III_sn
+Verb_Pharse_Rev -> Verb_t_I_pl    Subject_I_pl
+Verb_Pharse_Rev -> Verb_t_II_pl   Subject_II_pl
+Verb_Pharse_Rev -> Verb_t_III_pl  Subject_III_pl
+
 Verb_Pharse_Modal -> Subject_I_sn    Verb_modal_I_sn
 Verb_Pharse_Modal -> Subject_II_sn   Verb_modal_II_sn
 Verb_Pharse_Modal -> Subject_III_sn  Verb_modal_III_sn
 Verb_Pharse_Modal -> Subject_I_pl    Verb_modal_I_pl
 Verb_Pharse_Modal -> Subject_II_pl   Verb_modal_II_pl
 Verb_Pharse_Modal -> Subject_III_pl  Verb_modal_III_pl
+
+Verb_Pharse_Modal_Rev -> Verb_modal_I_sn    Subject_I_sn
+Verb_Pharse_Modal_Rev -> Verb_modal_II_sn   Subject_II_sn
+Verb_Pharse_Modal_Rev -> Verb_modal_III_sn  Subject_III_sn
+Verb_Pharse_Modal_Rev -> Verb_modal_I_pl    Subject_I_pl
+Verb_Pharse_Modal_Rev -> Verb_modal_II_pl   Subject_II_pl
+Verb_Pharse_Modal_Rev -> Verb_modal_III_pl  Subject_III_pl
 
 Nebensatz -> Konjunktion  Subject_I_sn    Object_Akk  Verb_t_I_sn
 Nebensatz -> Konjunktion  Subject_II_sn   Object_Akk  Verb_t_II_sn
@@ -69,22 +95,28 @@ Subject_III_sn -> Artikel_Nom_M   Nomen_M
 Subject_III_sn -> Artikel_Nom_F   Nomen_F
 Subject_III_sn -> Artikel_Nom_N   Nomen_N
 Subject_III_sn -> Artikel_Nom_Pl  Nomen_Pl
+Subject_III_sn -> Nomen_Pl
 Subject_III_sn -> Artikel_Nom_M   Adj_Nom_M   Nomen_M
 Subject_III_sn -> Artikel_Nom_F   Adj_Nom_F   Nomen_F
 Subject_III_sn -> Artikel_Nom_N   Adj_Nom_N   Nomen_N
 Subject_III_sn -> Artikel_Nom_Pl  Adj_Nom_Pl  Nomen_Pl
+Subject_III_sn -> Adj_Nom_Pl  Nomen_Pl
 
 Object_Akk -> Artikel_Akk_M   Nomen_M
 Object_Akk -> Artikel_Akk_F   Nomen_F
 Object_Akk -> Artikel_Akk_N   Nomen_N
 Object_Akk -> Artikel_Akk_Pl  Nomen_Pl
+Object_Akk -> Nomen_Pl
 Object_Akk -> Artikel_Akk_M   Adj_Akk_M   Nomen_M
 Object_Akk -> Artikel_Akk_F   Adj_Akk_F   Nomen_F
 Object_Akk -> Artikel_Akk_N   Adj_Akk_N   Nomen_N
 Object_Akk -> Artikel_Akk_Pl  Adj_Akk_Pl  Nomen_Pl
+Object_Akk -> Adj_Akk_Pl  Nomen_Pl
 Object_Akk -> Object_Akk und Object_Akk
+Object_Akk -> Object_Akk oder Object_Akk
 
-Preposition_Pharce -> Prep  Object_Dat
+Preposition_Pharse -> Prep  Object_Dat
+Preposition_Pharse -> Preposition_Pharse Preposition_Pharse
 
 Object_Dat -> Artikel_Dat_M   Nomen_M
 Object_Dat -> Artikel_Dat_F   Nomen_F
@@ -95,8 +127,9 @@ Object_Dat -> Artikel_Dat_F   Adj_Dat_F   Nomen_F
 Object_Dat -> Artikel_Dat_N   Adj_Dat_N   Nomen_N
 Object_Dat -> Artikel_Dat_Pl  Adj_Dat_Pl  Nomen_Pl
 Object_Dat -> Object_Dat und Object_Dat
+Object_Dat -> Object_Dat oder Object_Dat
 
-Prep -> auf | an | neben | hinten | vor | von | unten | in
+Prep -> auf | an | neben | hinten | vor | von | unten | in | mit
 
 Artikel_Nom_M  -> der | ein  | kein
 Artikel_Nom_F  -> die | eine | keine
@@ -120,41 +153,43 @@ Pers_Pron_Nom_II_pl  -> ihr
 Pers_Pron_Nom_III_sn -> sie | er | es
 Pers_Pron_Nom_III_pl -> sie | Sie
 
-Adj_Nom_M  -> kleiner | leckerer | grosser
-Adj_Nom_F  -> kleine  | leckere  | grosse
-Adj_Nom_N  -> klein   | lecker   | gross
-Adj_Nom_Pl -> kleine  | leckere  | grosse
+Adj_Nom_M  -> kleiner | leckerer | großer
+Adj_Nom_F  -> kleine  | leckere  | große
+Adj_Nom_N  -> klein   | lecker   | groß
+Adj_Nom_Pl -> kleine  | leckere  | große
 
-Adj_Akk_M  -> kleinen | leckeren | grossen
-Adj_Akk_F  -> kleine  | leckere  | grosse
-Adj_Akk_N  -> klein   | lecker   | gross
-Adj_Akk_Pl -> kleine  | leckere  | grosse
+Adj_Akk_M  -> kleinen | leckeren | großen
+Adj_Akk_F  -> kleine  | leckere  | große
+Adj_Akk_N  -> klein   | lecker   | groß
+Adj_Akk_Pl -> kleine  | leckere  | große
 
-Adj_Dat_M  -> kleinen | leckeren | grossen
-Adj_Dat_F  -> kleinen | leckeren | grossen
-Adj_Dat_N  -> kleinen | leckeren | grossen
-Adj_Dat_Pl -> kleinen | leckeren | grossen
+Adj_Dat_M  -> kleinen | leckeren | großen
+Adj_Dat_F  -> kleinen | leckeren | großen
+Adj_Dat_N  -> kleinen | leckeren | großen
+Adj_Dat_Pl -> kleinen | leckeren | großen
 
-Verb_t_inf    -> essen | brauchen | haben | geben | legen
-Verb_t_I_sn   -> esse  | brauche  | habe  | gebe  | lege
-Verb_t_II_sn  -> isst  | brauchst | hast  | gibst | legst
-Verb_t_III_sn -> isst  | braucht  | hat   | gibt  | legt
-Verb_t_I_pl   -> essen | brauchen | haben | geben | legen
-Verb_t_II_pl  -> esst  | braucht  | habt  | gibt  | legt
-Verb_t_III_pl -> essen | brauchen | haben | geben | legen
+Verb_t_inf    -> essen | brauchen | haben | geben | legen | trinken | nehmen | kaufen
+Verb_t_I_sn   -> esse  | brauche  | habe  | gebe  | lege  | trinke  | nehme  | kaufe
+Verb_t_II_sn  -> isst  | brauchst | hast  | gibst | legst | trinkst | nimmst | kaufst
+Verb_t_III_sn -> isst  | braucht  | hat   | gibt  | legt  | trinkt  | nimmt  | kauft
+Verb_t_I_pl   -> essen | brauchen | haben | geben | legen | trinken | nehmen | kaufen
+Verb_t_II_pl  -> esst  | braucht  | habt  | gibt  | legt  | trinkt  | nehmt  | kauft
+Verb_t_III_pl -> essen | brauchen | haben | geben | legen | trinken | nehmen | kaufen
 
-Verb_modal_inf    -> wollen | sollen
-Verb_modal_I_sn   -> will   | soll
-Verb_modal_II_sn  -> willst | sollst
-Verb_modal_III_sn -> will   | soll
-Verb_modal_I_pl   -> wollen | sollen
-Verb_modal_II_pl  -> wollt  | sollt
-Verb_modal_III_pl -> wollen | sollen
+Verb_modal_inf    -> wollen | sollen | können | dürfen | mögen | müssen | möchten
+Verb_modal_I_sn   -> will   | soll   | kann   | darf   | mag   | muss   | möchte
+Verb_modal_II_sn  -> willst | sollst | kannst | darfst | magst | musst  | möchtest
+Verb_modal_III_sn -> will   | soll   | kann   | darf   | mag   | muss   | möchte
+Verb_modal_I_pl   -> wollen | sollen | können | dürfen | mögen | müssen | möchten
+Verb_modal_II_pl  -> wollt  | sollt  | könnt  | dürft  | mögt  | müsst  | möchtet
+Verb_modal_III_pl -> wollen | sollen | können | dürfen | mögen | müssen | möchten
 
-Nomen_M  -> Hund | Mann | Apfel | Zug | Tisch | Fisch | Saft | Hunger
-Nomen_F  -> Orange | Tasche | Frau | Wohnung | Gabel | Wand
-Nomen_N  -> Fenster | Brot | Madchen | Zimmer | Bild
-Nomen_Pl -> Orangen</textarea>
+Nomen_M  -> Hund | Mann | Junge | Apfel | Zug | Tisch | Fisch | Saft | Hunger | Tee | Kaffee | Wein | Löffel | Teller
+Nomen_F  -> Orange | Tasche | Frau | Wohnung | Gabel | Wand | Milch | Karte | Küche | Gabel | Tasse | Suppe | Schüssel
+Nomen_N  -> Fenster | Brot | Mädchen | Zimmer | Badezimmer | Schlafzimmer | Bild | Wasser | Bier | Obst | Gemüse | Geld | Kind | Auto | Computer | Messer
+Nomen_Pl -> Orangen | Hunger | Wasser | Kinder
+
+</textarea>
 </div>
 <br/>
 <div class="txtarea">
