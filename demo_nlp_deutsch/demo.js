@@ -31,7 +31,8 @@ $('.example').click(function(){
     return false;
 });
 
-
+// Slider for horizontal scaling of the tree
+// https://jqueryui.com/slider/#rangemin
 $( "#slider-range-min" ).slider({
   range: "min",
   value: 0,
@@ -126,14 +127,14 @@ var nodeColors = {
     "default" : "yellow"
 }
 
-// Used for expanding of the tree during scaling-out
+// Used for horizontal scaling of the tree
 var currentZoom = 1;
 
 // D3js code is taken from http://bl.ocks.org/d3noob/8326869
 // http://www.d3noob.org/2014/01/tree-diagrams-in-d3js_11.html
 function update(source) {
 
-  // Used for horizontal scaling of the tree during scaling-out
+  // Used for horizontal scaling of the tree
   var zoom = (currentZoom && currentZoom < 1) ? currentZoom : 1;
   
   // Cluster layout https://bl.ocks.org/mbostock/4063570
