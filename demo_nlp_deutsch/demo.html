@@ -14,12 +14,44 @@
 <body onLoad="init()">
 
 <div class="txtarea">
+    <a href="#" class="example">ich esse den Apfel</a> <br/>
+    <a href="#" class="example">Sie essen den Apfel in der Küche</a> <br/>
+    <a href="#" class="example">der Mann isst den Fisch in der Küche neben dem Zimmer</a> <br/>
+    <a href="#" class="example">die Frau trinkt den Tee in dem Zimmer</a> <br/>
+    <br/>
+    
+    <a href="#" class="example">ich will das Bier trinken</a> <br/>
+    <a href="#" class="example">ich möchte das Brot und den Apfel essen</a> <br/>
+    <br/>
+
+    <a href="#" class="example">wenn ich Hunger habe, esse ich große Orangen</a> <br/>    
+    <a href="#" class="example">weil er schlafen will, trinkt er den Kaffee auf der Straße</a> <br/>  
+    <a href="#" class="example">die Frau isst den Apfel, und der Mann isst die Orange, obwohl er keinen Hunger hat</a> <br/>
+</div>
+<br/>
+
+<div class="txtarea">
     <input type="text" size="50" id="txt"/>
 </div>
+
+<div>
+Den Abstand zwischen den Knoten des Baums vergrössern (DE)
+<br/>
+Increase the separation between the nodes of the tree (EN)
+</div>
+<br/>
 
 <div id="slider-range-min"></div>
 
 <div id="body" style="border-style: solid;"></div>
+<br/>
+
+
+<div>
+Die grammatikalischen Regeln (Context Free Grammatik) (DE)
+<br/>
+The grammar rules (Context Free Grammar) (EN)
+</div>
 
 <div class="grammar_div">
 <textarea name="Text1" rows="40" id="grm" class="txtarea">
@@ -81,6 +113,27 @@ Nebensatz -> Konjunktion  Subject_III_sn  Object_Akk  Verb_t_III_sn
 Nebensatz -> Konjunktion  Subject_I_pl    Object_Akk  Verb_t_I_pl
 Nebensatz -> Konjunktion  Subject_II_pl   Object_Akk  Verb_t_II_pl
 Nebensatz -> Konjunktion  Subject_III_pl  Object_Akk  Verb_t_III_pl
+
+Nebensatz -> Konjunktion  Subject_I_sn    Object_Akk  Verb_t_inf  Verb_modal_I_sn
+Nebensatz -> Konjunktion  Subject_II_sn   Object_Akk  Verb_t_inf  Verb_modal_II_sn
+Nebensatz -> Konjunktion  Subject_III_sn  Object_Akk  Verb_t_inf  Verb_modal_III_sn
+Nebensatz -> Konjunktion  Subject_I_pl    Object_Akk  Verb_t_inf  Verb_modal_I_pl
+Nebensatz -> Konjunktion  Subject_II_pl   Object_Akk  Verb_t_inf  Verb_modal_II_pl
+Nebensatz -> Konjunktion  Subject_III_pl  Object_Akk  Verb_t_inf  Verb_modal_III_pl
+
+Nebensatz -> Konjunktion  Subject_I_sn    Verb_t_I_sn
+Nebensatz -> Konjunktion  Subject_II_sn   Verb_t_II_sn
+Nebensatz -> Konjunktion  Subject_III_sn  Verb_t_III_sn
+Nebensatz -> Konjunktion  Subject_I_pl    Verb_t_I_pl
+Nebensatz -> Konjunktion  Subject_II_pl   Verb_t_II_pl
+Nebensatz -> Konjunktion  Subject_III_pl  Verb_t_III_pl
+
+Nebensatz -> Konjunktion  Subject_I_sn    Verb_t_inf  Verb_modal_I_sn
+Nebensatz -> Konjunktion  Subject_II_sn   Verb_t_inf  Verb_modal_II_sn
+Nebensatz -> Konjunktion  Subject_III_sn  Verb_t_inf  Verb_modal_III_sn
+Nebensatz -> Konjunktion  Subject_I_pl    Verb_t_inf  Verb_modal_I_pl
+Nebensatz -> Konjunktion  Subject_II_pl   Verb_t_inf  Verb_modal_II_pl
+Nebensatz -> Konjunktion  Subject_III_pl  Verb_t_inf  Verb_modal_III_pl
 
 Konjunktion -> weil | obwohl | wenn | dass
 
@@ -168,13 +221,13 @@ Adj_Dat_F  -> kleinen | leckeren | großen
 Adj_Dat_N  -> kleinen | leckeren | großen
 Adj_Dat_Pl -> kleinen | leckeren | großen
 
-Verb_t_inf    -> essen | brauchen | haben | geben | legen | trinken | nehmen | kaufen
-Verb_t_I_sn   -> esse  | brauche  | habe  | gebe  | lege  | trinke  | nehme  | kaufe
-Verb_t_II_sn  -> isst  | brauchst | hast  | gibst | legst | trinkst | nimmst | kaufst
-Verb_t_III_sn -> isst  | braucht  | hat   | gibt  | legt  | trinkt  | nimmt  | kauft
-Verb_t_I_pl   -> essen | brauchen | haben | geben | legen | trinken | nehmen | kaufen
-Verb_t_II_pl  -> esst  | braucht  | habt  | gibt  | legt  | trinkt  | nehmt  | kauft
-Verb_t_III_pl -> essen | brauchen | haben | geben | legen | trinken | nehmen | kaufen
+Verb_t_inf    -> essen | brauchen | haben | geben | legen | trinken | nehmen | kaufen  | schlafen
+Verb_t_I_sn   -> esse  | brauche  | habe  | gebe  | lege  | trinke  | nehme  | kaufe   | schlafe
+Verb_t_II_sn  -> isst  | brauchst | hast  | gibst | legst | trinkst | nimmst | kaufst  | schläfst
+Verb_t_III_sn -> isst  | braucht  | hat   | gibt  | legt  | trinkt  | nimmt  | kauft   | schläft
+Verb_t_I_pl   -> essen | brauchen | haben | geben | legen | trinken | nehmen | kaufen  | schlafen
+Verb_t_II_pl  -> esst  | braucht  | habt  | gibt  | legt  | trinkt  | nehmt  | kauft   | schlaft
+Verb_t_III_pl -> essen | brauchen | haben | geben | legen | trinken | nehmen | kaufen  | schlafen
 
 Verb_modal_inf    -> wollen | sollen | können | dürfen | mögen | müssen | möchten
 Verb_modal_I_sn   -> will   | soll   | kann   | darf   | mag   | muss   | möchte
@@ -185,16 +238,11 @@ Verb_modal_II_pl  -> wollt  | sollt  | könnt  | dürft  | mögt  | müsst  | m�
 Verb_modal_III_pl -> wollen | sollen | können | dürfen | mögen | müssen | möchten
 
 Nomen_M  -> Hund | Mann | Junge | Apfel | Zug | Tisch | Fisch | Saft | Hunger | Tee | Kaffee | Wein | Löffel | Teller
-Nomen_F  -> Orange | Tasche | Frau | Wohnung | Gabel | Wand | Milch | Karte | Küche | Gabel | Tasse | Suppe | Schüssel
+Nomen_F  -> Orange | Tasche | Frau | Wohnung | Gabel | Wand | Milch | Karte | Küche | Gabel | Tasse | Suppe | Schüssel | Straße
 Nomen_N  -> Fenster | Brot | Mädchen | Zimmer | Badezimmer | Schlafzimmer | Bild | Wasser | Bier | Obst | Gemüse | Geld | Kind | Auto | Computer | Messer
 Nomen_Pl -> Orangen | Hunger | Wasser | Kinder
 
 </textarea>
-</div>
-<br/>
-<div class="txtarea">
-    <a href="#" class="example">ich esse den Apfel</a> <br/>
-    <a href="#" class="example">der Mann isst den Apfel, und die Frau isst die Orange, obwohl sie keinen Hunger haben</a> <br/>
 </div>
 </body>
 </html>
