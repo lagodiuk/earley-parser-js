@@ -4,8 +4,9 @@ Tiny JavaScript implementation of context-free languages parser - [Earley parser
 ### Table of contents
 1. [General information about Earley parsing algorithm](#general-information) <br/>
 2. [Online demo](#online-demo) <br/>
-2.1 [Parser of a tiny subset of English grammar](#parser-of-a-tiny-subset-of-english-grammar) <br/>
-2.2 [Parser of arithmetic expressions](#parser-of-arithmetic-expressions) <br/>
+2.1 [Parser of the tiny subset of German grammar](#parser-of-the-tiny-subset-of-english-grammar) <br/>
+2.2 [Parser of the tiny subset of English grammar](#parser-of-the-tiny-subset-of-english-grammar) <br/>
+2.3 [Parser of arithmetic expressions](#parser-of-arithmetic-expressions) <br/>
 3. [Quick start](#usage) <br/>
 3.1 [Grammar with hardcoded terminal symbols](#grammar-with-hardcoded-terminal-symbols) <br/>
 3.2 [Customizing logic of tokens classification into terminal symbols](#customizing-logic-of-tokens-classification-into-terminal-symbols) <br/>
@@ -28,7 +29,13 @@ Earley parser performs particularly well when the rules are written left-recursi
 
 ###Online demo###
 
-####Parser of a tiny subset of English grammar####
+####Parser of the tiny subset of German grammar####
+
+Parser of the tiny subset of German grammar: http://lagodiuk.github.io/nlp/2016/05/23/deutsch_nlp.html
+
+![Parser of a tiny subset of German grammar](https://raw.githubusercontent.com/lagodiuk/earley-parser-js/master/demo_nlp_deutsch/deutsch_nlp_demo_screenshot.png)
+
+####Parser of the tiny subset of English grammar####
 
 Parser of a tiny subset of English grammar: https://jsfiddle.net/2mb3w9c1/4/embedded/result/
 
