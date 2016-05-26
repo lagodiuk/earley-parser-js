@@ -4,7 +4,7 @@ Tiny JavaScript implementation of context-free languages parser - [Earley parser
 ### Table of contents
 1. [General information about Earley parsing algorithm](#general-information) <br/>
 2. [Online demo](#online-demo) <br/>
-2.1 [Parser of the tiny subset of German grammar](#parser-of-the-tiny-subset-of-english-grammar) <br/>
+2.1 [Parser of the tiny subset of German grammar](#parser-of-the-tiny-subset-of-german-grammar) <br/>
 2.2 [Parser of the tiny subset of English grammar](#parser-of-the-tiny-subset-of-english-grammar) <br/>
 2.3 [Parser of arithmetic expressions](#parser-of-arithmetic-expressions) <br/>
 3. [Quick start](#usage) <br/>
