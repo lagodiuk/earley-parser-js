@@ -31,7 +31,7 @@ Earley parser performs particularly well when the rules are written left-recursi
 
 ####Parser of the tiny subset of German grammar####
 
-Parser of the tiny subset of German grammar: http://lagodiuk.github.io/nlp/2016/05/23/deutsch_nlp.html
+Parser of the tiny subset of German grammar: http://lagodiuk.github.io/nlp/deutsch.html
 
 ![Parser of a tiny subset of German grammar](https://raw.githubusercontent.com/lagodiuk/earley-parser-js/master/demo_nlp_deutsch/deutsch_nlp_demo_screenshot.png)
 
