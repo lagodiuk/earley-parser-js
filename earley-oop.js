@@ -299,40 +299,46 @@ var tinynlp = (function(){
                 rhsSubTrees[i] = rhsSubTrees[i].concat(this.ref[i][j].traverse());
             }
         }
-        var possibleSubTrees = [];
-        combinations(rhsSubTrees, 0, [], possibleSubTrees);
+
         var result = [];
-        for (var i in possibleSubTrees) {
+        for (var possibleSubTree of combinations(rhsSubTrees, 0, [])) {
             result.push({
                 root: this.lhs, 
                 left: this.left,
                 right: this.right,
-                subtrees: possibleSubTrees[i]
+                subtrees: possibleSubTree
             })
         }
         return result;
     }
     
-    // Generating array of all possible combinations, e.g.:
+    // Function, which produces the generator of all possible combinations, e.g.:
     // input: [[1, 2, 3], [4, 5]]
-    // output: [[1, 4], [1, 5], [2, 4], [2, 5], [3, 4], [3, 5]]
+    // output is the generator, which produces the following sequence: [[1, 4], [1, 5], [2, 4], [2, 5], [3, 4], [3, 5]]
     //
     // Empty subarrays will be ignored. E.g.:
     // input: [[1, 2, 3], []]
-    // output: [[1], [2], [3]]
-    function combinations(arrOfArr, i, stack, result) {
+    // output is the generator, which produces the following sequence: [[1], [2], [3]]
+    function* combinations(arrOfArr, i, stack) {
+    
         if (i == arrOfArr.length) {
-            result.push(stack.slice());
-            return;
-        }
-        if(arrOfArr[i].length == 0) {
-            combinations(arrOfArr, i + 1, stack, result);
+        
+            yield stack.slice();
+            
         } else {
-            for (var j in arrOfArr[i]) {
-                if(stack.length == 0 || stack[stack.length - 1].right == arrOfArr[i][j].left) {
-                    stack.push(arrOfArr[i][j]);
-                    combinations(arrOfArr, i + 1, stack, result);
-                    stack.pop();
+        
+            if(arrOfArr[i].length == 0) {
+            
+                yield* combinations(arrOfArr, i + 1, stack);
+                
+            } else {
+                for (var j in arrOfArr[i]) {
+                    if(stack.length == 0 || stack[stack.length - 1].right == arrOfArr[i][j].left) {
+                    
+                        stack.push(arrOfArr[i][j]);
+                        yield* combinations(arrOfArr, i + 1, stack);
+                        stack.pop();
+                    }
                 }
             }
         }
@@ -386,5 +392,6 @@ var tinynlp = (function(){
     exports.Chart = Chart;
     exports.parse = parse;
     exports.logging = logging;
+    exports.combinations = combinations;
     return exports;
 })();
