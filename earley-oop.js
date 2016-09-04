@@ -272,8 +272,10 @@ var tinynlp = (function(){
     // Returning all possible correct parse trees
     // Possible exponential complexity and memory consumption!
     // Take care of your grammar!
-    // TODO: instead of returning all possible parse trees - provide iterator + callback
-    State.prototype.traverse = function() {
+    //
+    // TODO: I have just started to refactor this function, for the purpose of avoiding the exponential consumption of memory
+    // I'm trying to make use of the Generator functions based logic
+    State.prototype.traverse = function* () {
         if (this.ref.length == 1 && Object.keys(this.ref[0]).length == 0) {
             // This is last production in parse tree (leaf)
             var subtrees = [];
@@ -285,31 +287,35 @@ var tinynlp = (function(){
                     right: this.right
                 });
             }
-            return [{
+            yield {
                 root: this.lhs,
                 left: this.left,
                 right: this.right,
                 subtrees: subtrees
-            }];
+            };
+            return;
         }
+        
+        // TODO: the following block of code should be refactored (lazyliness instead of eagerness) 
         var rhsSubTrees = [];
         for (var i = 0; i < this.ref.length; i++) {
             rhsSubTrees[i] = [];
             for (var j in this.ref[i]) {
-                rhsSubTrees[i] = rhsSubTrees[i].concat(this.ref[i][j].traverse());
+                // This should be done in the lazy way
+                for(var subTree of this.ref[i][j].traverse()) {
+                    rhsSubTrees[i] = rhsSubTrees[i].concat(subTree);
+                }
             }
         }
 
-        var result = [];
         for (var possibleSubTree of combinations(rhsSubTrees, 0, [])) {
-            result.push({
+            yield {
                 root: this.lhs, 
                 left: this.left,
                 right: this.right,
                 subtrees: possibleSubTree
-            })
+            };
         }
-        return result;
     }
     
     // Function, which produces the generator of all possible combinations, e.g.:
@@ -327,19 +333,21 @@ var tinynlp = (function(){
             
         } else {
         
-            if(arrOfArr[i].length == 0) {
-            
-                yield* combinations(arrOfArr, i + 1, stack);
+            var generatorIsEmpty = true;
+        
+            for (var arrOfArr_i_j of arrOfArr[i]) {
+
+                generatorIsEmpty = false;
+                if(stack.length == 0 || stack[stack.length - 1].right == arrOfArr_i_j.left) {
                 
-            } else {
-                for (var j in arrOfArr[i]) {
-                    if(stack.length == 0 || stack[stack.length - 1].right == arrOfArr[i][j].left) {
-                    
-                        stack.push(arrOfArr[i][j]);
-                        yield* combinations(arrOfArr, i + 1, stack);
-                        stack.pop();
-                    }
+                    stack.push(arrOfArr_i_j);
+                    yield* combinations(arrOfArr, i + 1, stack);
+                    stack.pop();
                 }
+            }
+        
+            if(generatorIsEmpty) {
+                yield* combinations(arrOfArr, i + 1, stack);
             }
         }
     }

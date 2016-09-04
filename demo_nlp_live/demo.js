@@ -37,11 +37,10 @@ function init() {
 
         var state = chart.getFinishedRoot(rootProduction);
         if (state) {
-            var trees = state.traverse();
             $('#dv').empty();
-            for (var i in trees) {
-                console.log(JSON.stringify(trees[i]))
-                $('#dv').append('<div class="tree" id="displayTree"><ul>' + displayTree(trees[i]) + '</ul></div></br>');
+            for (var tree of state.traverse()) {
+                console.log(JSON.stringify(tree))
+                $('#dv').append('<div class="tree" id="displayTree"><ul>' + displayTree(tree) + '</ul></div></br>');
             }
         }
     });
