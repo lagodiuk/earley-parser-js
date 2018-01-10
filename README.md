@@ -35,7 +35,7 @@ Parser of the tiny subset of German grammar: http://lagodiuk.github.io/nlp/deuts
 
 ![Parser of a tiny subset of German grammar](https://raw.githubusercontent.com/lagodiuk/earley-parser-js/master/demo_nlp_deutsch/deutsch_nlp_demo_screenshot.png)
 
-####Parser of the tiny subset of English grammar####
+#### Parser of the tiny subset of English grammar ####
 
 Parser of a tiny subset of English grammar: https://jsfiddle.net/2mb3w9c1/4/embedded/result/
 
