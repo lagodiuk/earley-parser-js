@@ -13,6 +13,7 @@ Tiny JavaScript implementation of context-free languages parser - [Earley parser
 3.3 [Traversing parsed trees (parsing-forest)](#traversing-parsed-trees) <br/>
 3.4 [Parsing tiny subset of English language grammar](#parsing-tiny-subset-of-english-language-grammar) <br/>
 4. [Used Tools and Libraries](#used-tools-and-libraries)
+4. [This library is used by...](#this-library-is-used-by)
 
 ### General information ###
 
@@ -221,4 +222,7 @@ Additionally, some of the demo examples are using:
 
 Some of the demo examples are currently hosted on https://jsfiddle.net/
 
-
+### This library is used by... ###
+I have been informed, that the library is used by:
+* The web site of the book "Formale Sprachen, abstrakte Automaten und Compiler: Lehr- und Arbeitsbuch für Grundstudium und Fortbildung" (by Christian Wagenknecht (Autor), Michael Hielscher (Mitwirkende)): https://flaci.com/home/
+The library is used by this web site for creation of the browser environment, where users can experiment with different Context Free Grammars (define grammars and produce the parsing trees on the fly)
