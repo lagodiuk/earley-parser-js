@@ -14,7 +14,7 @@ Tiny JavaScript implementation of context-free languages parser - [Earley parser
 3.4 [Parsing tiny subset of English language grammar](#parsing-tiny-subset-of-english-language-grammar) <br/>
 4. [Used Tools and Libraries](#used-tools-and-libraries)
 
-###General information###
+### General information ###
 
 The Earley parser is an algorithm for parsing strings that belong to a given [context-free language](https://en.wikipedia.org/wiki/Context-free_language) (the algorithm, named after its inventor, [Jay Earley](https://en.wikipedia.org/wiki/Jay_Earley)).
 
@@ -27,9 +27,9 @@ Complexity of Earley parsing algorithm (in terms of *n* - the length of the pars
 
 Earley parser performs particularly well when the rules are written left-recursively.
 
-###Online demo###
+### Online demo ###
 
-####Parser of the tiny subset of German grammar####
+#### Parser of the tiny subset of German grammar ####
 
 Parser of the tiny subset of German grammar: http://lagodiuk.github.io/nlp/deutsch.html
 
@@ -41,7 +41,7 @@ Parser of a tiny subset of English grammar: https://jsfiddle.net/2mb3w9c1/4/embe
 
 ![Parser of a tiny subset of English grammar](https://raw.githubusercontent.com/lagodiuk/earley-parser-js/master/img/screenshot_2.png)
 
-####Parser of arithmetic expressions####
+#### Parser of arithmetic expressions ####
 
 Parser of arithmetic expressions: https://jsfiddle.net/vsf982m9/embedded/result/
 ```javascript
@@ -66,11 +66,11 @@ grammar.terminalSymbols = function(token) {
 
 ![Parsing arithmetic expressions demo](https://raw.githubusercontent.com/lagodiuk/earley-parser-js/master/img/screenshot_1.png)
 
-##Usage##
+## Usage ##
 
 Attach to your project - single file with implementation of Earley algorithm: https://rawgithub.com/lagodiuk/earley-parser-js/master/earley-oop.min.js
 
-###Grammar with hardcoded terminal symbols###
+### Grammar with hardcoded terminal symbols ###
 ```javascript
 // Define grammar
 var grammar = new tinynlp.Grammar([
@@ -104,7 +104,7 @@ for (var i in trees) {
 }
 ```
 
-###Customizing logic of tokens classification into terminal symbols###
+### Customizing logic of tokens classification into terminal symbols ###
 Potentially, this approach allows to extend parser with custom classifier of tokens - into terminal symbols (e.g. recognize terminal symbols using Regular expressions or more sophisticated classifiers):
 ```javascript
 var grammar = new tinynlp.Grammar([
@@ -146,7 +146,7 @@ for (var i in trees) {
      console.log(JSON.stringify(trees[i]))
 }
 ```
-###Traversing parsed trees###
+### Traversing parsed trees ###
 Following snippet shows how to transform parsed trees into nested HTML lists:
 ```javascript
 function toNestedList(tree) {
@@ -173,7 +173,7 @@ for (var i in trees) {
      // embed htmlRepresentstion into HTML page
 }
 ```
-###Parsing tiny subset of English language grammar###
+### Parsing tiny subset of English language grammar ###
 Grammar taken from: https://en.wikipedia.org/wiki/CYK_algorithm#Example
 ```javascript
 var grammar = new tinynlp.Grammar([
@@ -210,7 +210,7 @@ for (var i in trees) {
 }
 ```
 
-###Used Tools and Libraries###
+### Used Tools and Libraries ###
 Implementation of the Earley Parser is self-sufficient (https://github.com/lagodiuk/earley-parser-js/blob/master/earley-oop.js).
 
 However, for producing of the minimized variant of library was used the [Google Closure Compiler Service](https://closure-compiler.appspot.com/home).
@@ -220,3 +220,5 @@ Additionally, some of the demo examples are using:
 - [D3.js](https://d3js.org/)
 
 Some of the demo examples are currently hosted on https://jsfiddle.net/
+
+
