@@ -223,6 +223,5 @@ Additionally, some of the demo examples are using:
 Some of the demo examples are currently hosted on https://jsfiddle.net/
 
 ### This library is used by... ###
-I have been informed, that the library is used by:
 * The web site of the book "Formale Sprachen, abstrakte Automaten und Compiler: Lehr- und Arbeitsbuch für Grundstudium und Fortbildung" (by Christian Wagenknecht (Autor), Michael Hielscher (Mitwirkende)): https://flaci.com/home/
 The library is used by this web site for creation of the browser environment, where users can experiment with different Context Free Grammars (define grammars and produce the parsing trees on the fly)
